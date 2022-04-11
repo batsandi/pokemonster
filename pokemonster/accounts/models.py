@@ -41,9 +41,7 @@ class Profile(models.Model):
         # )
     )
 
-    photo = models.ImageField()
-
-    description = models.TextField(
+    photo = models.ImageField(
         null=True,
         blank=True,
     )

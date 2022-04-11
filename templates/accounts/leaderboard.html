@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        {% for profile in object_list %}
+            <div>
+            {{ profile.name }}
+            {{ profile.pk }}
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

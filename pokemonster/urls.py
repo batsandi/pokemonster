@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+import pokemonster.accounts.signals
 
 urlpatterns = [
     path('admin/', admin.site.urls),

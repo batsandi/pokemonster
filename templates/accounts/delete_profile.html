@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Del Form -->
+{% if request.user.id == object.user.id %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input>Type "I quit"</input>
+        <button>I'm a quitter :(</button>
+    </form>
+{% else %}
+        BAD!!! You can't delete {{ object.user.profile.name }}'s profile...
+{% endif %}
+<!-- End Delete Form -->
+{% endblock %}

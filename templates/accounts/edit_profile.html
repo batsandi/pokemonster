@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Edit Form -->
+{% if request.user.id == object.user.id %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button>Edit</button>
+    </form>
+{% else %}
+        You can't edit {{ object.user.profile.name }}'s profile... Don't be so sneaky next time!
+{% endif %}
+<!-- End Edit Form -->
+{% endblock %}

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<!-- Login Form -->
+<!-- Registration Form -->
 <form method="POST">
     {% csrf_token %}
     {{ form }}
-    <button>Log in</button>
+    <button>Register</button>
 </form>
-<!-- End Login Form -->
+<!-- End Registration Form -->
 {% endblock %}
