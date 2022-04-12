@@ -15,6 +15,11 @@ class Customon(models.Model):
         max_length=NAME_MAX_LENGTH
     )
 
+    photo = models.ImageField(
+        null=True,
+        blank=True
+    )
+
     type = models.CharField(
         max_length=max(len(x) for (x, _) in TYPES),
         choices=TYPES,

@@ -10,5 +10,4 @@ urlpatterns = (
     path('leaderboard', UserListView.as_view(), name='leaderboard'),
     path('edit/<int:pk>', UserEditView.as_view(), name='edit profile'),
     path('delete/<int:pk>', UserDeleteView.as_view(), name='delete profile')
-
 )

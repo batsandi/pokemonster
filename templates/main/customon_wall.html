@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Customon Wall</h1>
+    <div>
+        {% for customon in object_list %}
+            <div>
+            Name: {{ customon.name }}
+            Owner: {{ customon.owner }}
+            Type: {{ customon.type }}
+            Likes: {{ customon.likes }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
