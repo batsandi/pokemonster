@@ -1,7 +1,7 @@
 import random
 import requests
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
 from pokemonster.fight.forms import CreateFightForm
@@ -42,14 +42,16 @@ def make_selection(request, selection):
         request.session['selected_pokemon'] = request.session.get('pokemon_2')
         request.session['enemy_pokemon'] = request.session.get('pokemon_1')
 
-    return redirect('create fight')
+    return redirect('make bet')
 
 
-# Refactor to MakeBetView, or something...
-class CreateFightView(views.CreateView):
+class MakeBetView(views.CreateView):
     form_class = CreateFightForm
-    template_name = 'fight/create-fight.html'
-    success_url = reverse_lazy('fight')
+    template_name = 'fight/make_bet.html'
+    # success_url = reverse_lazy('fight result')
+
+    def get_success_url(self):
+        return reverse('fight result', kwargs={'pk': self.object.pk})
 
     def get_form_kwargs(self):
         chosen_pokemon_data = self.request.session.get('selected_pokemon')
@@ -64,31 +66,36 @@ class CreateFightView(views.CreateView):
 
         winner, fight_log = Battle.fight(selected_pokemon, enemy_pokemon)
         kwargs['win'] = winner == kwargs['selected_pokemon']
+        kwargs['fight_log'] = fight_log
 
         return kwargs
 
 
-class FightView(views.TemplateView):
-    template_name = 'fight/fight.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        pokemon_1_data = self.request.session.get('pokemon_1')
-        pokemon_2_data = self.request.session.get('pokemon_2')
-
-        pokemon_1 = Pokemon(**pokemon_1_data)
-        pokemon_2 = Pokemon(**pokemon_2_data)
-
-        winner, fight_log = Battle.fight(pokemon_1, pokemon_2)
-
-        context.update({
-            'pokemon_1': pokemon_1,
-            'pokemon_2': pokemon_2,
-            'winner': winner,
-            'fight_log': fight_log,
-        })
-
-        return context
+class FightResultView(views.DetailView):
+    template_name = 'fight/fight_result.html'
+    model = Fight
+#
+# class FightView(views.TemplateView):
+#     template_name = 'fight/fight_result.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#
+#         pokemon_1_data = self.request.session.get('pokemon_1')
+#         pokemon_2_data = self.request.session.get('pokemon_2')
+#
+#         pokemon_1 = Pokemon(**pokemon_1_data)
+#         pokemon_2 = Pokemon(**pokemon_2_data)
+#
+#         winner, fight_log = Battle.fight(pokemon_1, pokemon_2)
+#
+#         context.update({
+#             'pokemon_1': pokemon_1,
+#             'pokemon_2': pokemon_2,
+#             'winner': winner,
+#             'fight_log': fight_log,
+#         })
+#
+#         return context
 
 

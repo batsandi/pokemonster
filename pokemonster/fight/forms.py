@@ -5,11 +5,12 @@ from pokemonster.fight.models import Fight
 
 
 class CreateFightForm(forms.ModelForm):
-    def __init__(self, owner, selected_pokemon, win,*args, **kwargs):
+    def __init__(self, owner, selected_pokemon, win, fight_log,*args, **kwargs):
         super().__init__(*args, **kwargs)
         self.owner = owner
         self.selected_pokemon = selected_pokemon
         self.win = win
+        self.fight_log = fight_log
 
     def save(self, commit=True):
         fight = super().save(commit=False)
@@ -17,6 +18,7 @@ class CreateFightForm(forms.ModelForm):
         fight.owner = self.owner
         fight.win = self.win
         fight.selected_pokemon = self.selected_pokemon
+        fight.fight_log = self.fight_log
 
         if commit:
             fight.save()

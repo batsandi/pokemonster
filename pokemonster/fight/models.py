@@ -34,6 +34,7 @@ class Pokemon(models.Model):
 
 class Fight(models.Model):
     POKEMON_NAME_MAX_LENGTH = 35
+
     owner = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -58,3 +59,5 @@ class Fight(models.Model):
     bet_amount = models.IntegerField(
         #validate positive
     )
+
+    fight_log = models.TextField()
