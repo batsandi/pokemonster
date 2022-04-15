@@ -74,28 +74,14 @@ class MakeBetView(views.CreateView):
 class FightResultView(views.DetailView):
     template_name = 'fight/fight_result.html'
     model = Fight
-#
-# class FightView(views.TemplateView):
-#     template_name = 'fight/fight_result.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#
-#         pokemon_1_data = self.request.session.get('pokemon_1')
-#         pokemon_2_data = self.request.session.get('pokemon_2')
-#
-#         pokemon_1 = Pokemon(**pokemon_1_data)
-#         pokemon_2 = Pokemon(**pokemon_2_data)
-#
-#         winner, fight_log = Battle.fight(pokemon_1, pokemon_2)
-#
-#         context.update({
-#             'pokemon_1': pokemon_1,
-#             'pokemon_2': pokemon_2,
-#             'winner': winner,
-#             'fight_log': fight_log,
-#         })
-#
-#         return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        fight_log = self.object.fight_log.split(', ')
+        context.update({
+            'split_fight_log': fight_log,
+        })
+
+        return context
 
 

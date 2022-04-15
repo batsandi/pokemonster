@@ -4,9 +4,11 @@ from pokemonster.accounts.models import Profile
 
 
 class Customon(models.Model):
-    CUTE = 'Cure'
+    CUTE = 'Cute'
     ANNOYING = 'Annoying'
     FUNNY = 'Funny'
+    ANGRY = 'Angry'
+    SAD = 'Sad'
 
     NAME_MAX_LENGTH = 35
     TYPES = [(x, x) for x in (CUTE, ANNOYING, FUNNY)]
@@ -15,10 +17,7 @@ class Customon(models.Model):
         max_length=NAME_MAX_LENGTH
     )
 
-    photo = models.ImageField(
-        null=True,
-        blank=True
-    )
+    photo = models.ImageField()
 
     type = models.CharField(
         max_length=max(len(x) for (x, _) in TYPES),

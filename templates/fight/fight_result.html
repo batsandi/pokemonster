@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    {{ object.fight_log }}
-{#<div>{{ pokemon_1.name | title}} VS {{ pokemon_2.name | title}}</div>#}
-{#{% for line in fight_log %}#}
-{#<div>{{ line }}</div>#}
-{#{% endfor %}#}
-{#    Winner: {{ winner.name | title }} <img src="{{winner.image}}">#}
+    <div>
+        You selected {{ object.selected_pokemon }}
+    </div>
+
+    {% for line in split_fight_log%}
+        <div>
+            {{ line }}
+        </div>
+    {% endfor %}
+    {% if object.win %}
+        <div>{{ object.selected_pokemon }} Won!</div>
+        <div>You gain ${{ object.bet_amount }}</div>
+        <div>Your cash is now: ${{ object.owner.cash }}</div>
+    {% else %}
+        <div>{{ object.selected_pokemon }} Lost!</div>
+        <div>You lose ${{ object.bet_amount }}</div>
+        <div>Your cash is now: ${{ object.owner.cash }}</div>
+
+    {% endif %}
 {% endblock %}

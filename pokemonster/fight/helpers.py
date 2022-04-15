@@ -127,7 +127,7 @@ class Battle(TypesMatrixMixin):
 
         cls.current_round = 0
         winner = cls.attacker
-        return winner, cls.fight_log
+        return winner, ', '.join(cls.fight_log)
 
 
 class PokemonFromAPI:

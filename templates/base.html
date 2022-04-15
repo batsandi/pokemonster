@@ -30,7 +30,10 @@
             <a class="nav-link" href="{% url 'select pokemon' %}">Fight</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' request.user.pk %}">{{ request.user.email }} ID: {{ request.user.pk }}</a>
+            <a class="nav-link" href="{% url 'profile' request.user.pk %}">{{ request.user.profile.name }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'log out' %}">Logout</a>
           </li>
       {% else %}
           <li class="nav-item">

@@ -4,8 +4,12 @@
     <div>
         {% for profile in object_list %}
             <div>
-            {{ profile.name }}
-            {{ profile.pk }}
+                    <a href="{% url 'profile' profile.user_id %}">
+                    Name: {{ profile.name }}</a>
+                    Cash: ${{ profile.cash }}
+                    Wins: {{ profile.get_wins_count }}
+                    Losses: {{ profile.get_losses_count }}
+
             </div>
         {% endfor %}
 

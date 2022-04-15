@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from pokemonster.main.forms import AddCustomonForm
-from pokemonster.main.models import Customon
+from pokemonster.main.forms import AddCustomonForm, AddCommentForm
+from pokemonster.main.models import Customon, Comment
 
 
 class ShowIndex(views.TemplateView):
@@ -30,3 +30,26 @@ class AddCustomonView(views.CreateView):
 class CustomonWallView(views.ListView):
     model = Customon
     template_name = 'main/customon_wall.html'
+
+
+class AddCommentView(views.CreateView):
+    template_name = 'main/create_comment.html'
+    model = Comment
+    success_url = reverse_lazy('wall')
+    form_class = AddCommentForm
+
+    def get_form_kwargs(self):
+        customon = Customon.objects.get(
+                        pk=self.kwargs['pk'])
+
+        kwargs = super().get_form_kwargs()
+        kwargs['customon'] = customon
+        return kwargs
+
+
+def like_customon(request, pk):
+    customon = Customon.objects.get(pk=pk)
+    customon.likes += 1
+    customon.save()
+
+    return redirect('wall')

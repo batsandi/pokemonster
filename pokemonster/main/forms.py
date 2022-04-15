@@ -1,6 +1,6 @@
 from django import forms
 
-from pokemonster.main.models import Customon
+from pokemonster.main.models import Customon, Comment
 
 
 class AddCustomonForm(forms.ModelForm):
@@ -18,3 +18,24 @@ class AddCustomonForm(forms.ModelForm):
     class Meta:
         model = Customon
         fields = ('name', 'type', 'photo')
+
+from django import forms
+
+from pokemonster.main.models import Customon
+
+
+class AddCommentForm(forms.ModelForm):
+    def __init__(self, customon, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.customon = customon
+
+    def save(self, commit=True):
+        comment = super().save(commit=False)
+        comment.customon = self.customon
+        if commit:
+            comment.save()
+        return comment
+
+    class Meta:
+        model = Comment
+        fields = ('text',)

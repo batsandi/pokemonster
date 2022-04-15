@@ -1,5 +1,4 @@
 from django.db import models
-
 from pokemonster.accounts.models import Profile
 
 

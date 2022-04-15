@@ -66,5 +66,13 @@ class Profile(models.Model):
         primary_key=True
     )
 
+    @property
+    def get_wins_count(self):
+        return len(self.fight_set.filter(owner_id=self.user_id, win=True))
+
+    @property
+    def get_losses_count(self):
+        return len(self.fight_set.filter(owner_id=self.user_id, win=False))
+
     def __str__(self):
         return f'{self.name}'

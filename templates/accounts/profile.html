@@ -7,6 +7,13 @@
     Cash: ${{ object.cash }}
     </div>
     <div>
+        Wins: {{ won_fights.count }}
+        Losses: {{ lost_fights.count }}
+    </div>
+    <div>
+        Customons: {{ customons }}
+    </div>
+    <div>
     {% if is_owner %}
         <a href="{% url 'edit profile' request.user.pk %}">Edit</a>
         <a href="{% url 'delete profile' request.user.pk %}">Delete</a>
