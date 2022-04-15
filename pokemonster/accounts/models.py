@@ -32,6 +32,8 @@ class Profile(models.Model):
 
     GENDERS = [(x, x) for x in (MALE, FEMALE, DO_NOT_SHOW)]
 
+    STARTING_CASH = 1000
+
     name = models.CharField(
         max_length=USERNAME_MAX_LENGTH,
         # validators=(
@@ -52,6 +54,10 @@ class Profile(models.Model):
         null=True,
         blank=True,
         default=DO_NOT_SHOW,
+    )
+
+    cash = models.IntegerField(
+        default=STARTING_CASH
     )
 
     user = models.OneToOneField(

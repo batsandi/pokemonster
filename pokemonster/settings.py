@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 MY_APPS = [
     'pokemonster.main',
     'pokemonster.accounts',
+    'pokemonster.fight',
 ]
 
 THIRD_PARTY_APPS = []

@@ -5,5 +5,7 @@ import pokemonster.accounts.signals
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pokemonster.main.urls')),
-    path('accounts/', include('pokemonster.accounts.urls'))
+    path('accounts/', include('pokemonster.accounts.urls')),
+    path('fight/', include('pokemonster.fight.urls')),
+
 ]
