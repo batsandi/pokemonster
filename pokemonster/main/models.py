@@ -24,10 +24,6 @@ class Customon(models.Model):
         choices=TYPES,
     )
 
-    likes = models.IntegerField(
-        default=0
-    )
-
     owner = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE
@@ -44,4 +40,9 @@ class Comment(models.Model):
 
     time = models.DateTimeField(
         auto_now_add=True
+    )
+
+    owner = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
     )

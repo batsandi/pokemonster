@@ -25,13 +25,15 @@ from pokemonster.main.models import Customon
 
 
 class AddCommentForm(forms.ModelForm):
-    def __init__(self, customon, *args, **kwargs):
+    def __init__(self, customon, owner, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.customon = customon
+        self.owner=owner
 
     def save(self, commit=True):
         comment = super().save(commit=False)
         comment.customon = self.customon
+        comment.owner = self.owner
         if commit:
             comment.save()
         return comment

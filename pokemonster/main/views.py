@@ -44,12 +44,6 @@ class AddCommentView(views.CreateView):
 
         kwargs = super().get_form_kwargs()
         kwargs['customon'] = customon
+        kwargs['owner'] = self.request.user.profile
         return kwargs
 
-
-def like_customon(request, pk):
-    customon = Customon.objects.get(pk=pk)
-    customon.likes += 1
-    customon.save()
-
-    return redirect('wall')

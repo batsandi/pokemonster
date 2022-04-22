@@ -11,9 +11,10 @@
                 <p class="card-text">A {{ customon.type | lower }} customon caught by user {{ customon.owner | title}}</p>
               </div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="{% url 'like' customon.pk%}">Likes</a> {{ customon.likes }}</li>
                 {% for comment in customon.comment_set.all %}
-                    <li class="list-group-item">{{ comment.text }}</li>
+                    <li class="list-group-item">
+                        <a href="{% url 'profile' comment.owner.user_id %}">{{ comment.owner | title }}
+                            </a>: {{ comment.text }}</li>
                 {% endfor %}
               </ul>
               <div class="card-body">
@@ -21,18 +22,5 @@
               </div>
             </div>
         </div>
-
-
-{#        <div class="container">#}
-{#                <div class="row">#}
-{#                    <img src="{{ customon.photo.url }}"#}
-{#                         style={height: 200px; width=200px}#}
-{#                         alt="No Image"/>#}
-{#                    Name: {{ customon.name }}#}
-{#                    Owner: {{ customon.owner }}#}
-{#                    Type: {{ customon.type }}#}
-{#                    Likes: {{ customon.likes }}#}
-{#                </div>#}
-{#        </div>#}
     {% endfor %}
 {% endblock %}

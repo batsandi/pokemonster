@@ -1,17 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>
-        {% for profile in object_list %}
-            <div>
-                    <a href="{% url 'profile' profile.user_id %}">
-                    Name: {{ profile.name }}</a>
-                    Cash: ${{ profile.cash }}
-                    Wins: {{ profile.get_wins_count }}
-                    Losses: {{ profile.get_losses_count }}
 
-            </div>
+
+
+
+
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Cash</th>
+          <th scope="col">Wins</th>
+          <th scope="col">Losses</th>
+          <th scope="col">Customons</th>
+
+
+        </tr>
+      </thead>
+      <tbody>
+          {% for profile in object_list %}
+            <tr>
+                <th scope="row"><a href="{% url 'profile' profile.user_id %}">{{ profile.user_id }}</a></th>
+              <td>{{ profile.name }}</td>
+              <td>${{ profile.cash }}</td>
+              <td>{{ profile.get_wins_count }}</td>
+              <td>{{ profile.get_losses_count }}</td>
+              <td>{{ profile.customon_set.count }}</td>
+
+
+            </tr>
+            {#            <div>#}
+{#                    <a href="{% url 'profile' profile.user_id %}">#}
+{#                    Name: {{ profile.name }}</a>#}
+{#                    Cash: ${{ profile.cash }}#}
+{#                    Wins: {{ profile.get_wins_count }}#}
+{#                    Losses: {{ profile.get_losses_count }}#}
+{##}
+{#            </div>#}
         {% endfor %}
-
-    </div>
+      </tbody>
+    </table>
+</div>
 {% endblock %}

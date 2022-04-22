@@ -9,25 +9,25 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+APP_ENV = os.getenv(key='APP_ENV')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2-dfua%w5w+k5=6kn!9u%&)xby01gq#4$44_af@b+zt6^b&9z2'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 #dummy comment
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -88,10 +88,10 @@ WSGI_APPLICATION = 'pokemonster.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pokemonster_db',
-        'USER': 'postgres',
-        'PASSWORD': '1123QwER',
-        'HOST': 'localhost',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '5432',
     }
 }

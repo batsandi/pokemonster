@@ -32,6 +32,10 @@ class CreateFightForm(forms.ModelForm):
     def clean_bet_amount(self):
         bet_amount = self.cleaned_data.get('bet_amount')
         cash = self.owner.cash
+        if cash == 0:
+            self.owner.cash = 1000
+            self.owner.save()
+            raise forms.ValidationError("Oh, you're broke. Here's another $1,000 to play with.")
         if bet_amount < 1:
             raise forms.ValidationError('Come on, bet some money...')
         if bet_amount > cash:
