@@ -1,3 +1,4 @@
+from cloudinary import models as cloudinary_models
 from django.db import models
 
 from pokemonster.accounts.models import Profile
@@ -9,15 +10,16 @@ class Customon(models.Model):
     FUNNY = 'Funny'
     ANGRY = 'Angry'
     SAD = 'Sad'
+    AMAZING = 'Amazing'
 
     NAME_MAX_LENGTH = 35
-    TYPES = [(x, x) for x in (CUTE, ANNOYING, FUNNY)]
+    TYPES = [(x, x) for x in (CUTE, ANNOYING, FUNNY, ANGRY, SAD, AMAZING)]
 
     name = models.CharField(
         max_length=NAME_MAX_LENGTH
     )
 
-    photo = models.ImageField()
+    photo = cloudinary_models.CloudinaryField('image',)
 
     type = models.CharField(
         max_length=max(len(x) for (x, _) in TYPES),

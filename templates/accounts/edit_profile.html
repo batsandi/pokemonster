@@ -2,7 +2,7 @@
 {% block content %}
 <!-- Edit Form -->
 {% if request.user.id == object.user.id %}
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}
         <button>Edit</button>
