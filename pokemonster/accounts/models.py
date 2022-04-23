@@ -1,3 +1,4 @@
+from cloudinary import models as cloudinary_models
 from django.contrib.auth import models as auth_models
 from django.db import models
 
@@ -43,10 +44,12 @@ class Profile(models.Model):
         # )
     )
 
-    photo = models.ImageField(
+    photo = cloudinary_models.CloudinaryField(
+        'image',
         null=True,
         blank=True,
     )
+
 
     gender = models.CharField(
         max_length=max(len(x) for x, _ in GENDERS),
