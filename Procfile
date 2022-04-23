@@ -1,3 +1,3 @@
-web: gunicorn --pythonpath pokemonster pokemonster.wsgi
-release: python pokemonster/manage.py migrate
+web: gunicorn --pythonpath pokemonster.wsgi
+release: python manage.py migrate
 
