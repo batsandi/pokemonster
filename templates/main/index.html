@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h1>This is index</h1>
+<div class="container"> <div class="jumbotron">
+  <h1 class="display-1">Pokemonster</h1>
+
+    <div class="card bg-white text-white">
+  <img class="card-img" src="{% static 'images/index.png'%}" alt="Card image">
+  <div class="card-img-overlay ">
+    <p class="display-5" style="color:black; margin-top:40%">Upload customons and get likes<br>Bet on pokemon fights and win cash</p>
+  </div>
+</div>
+
+
+{#    <img style="width: 100%" src="{% static 'images/index.png'%}" alt="No Image">#}
+
+    <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+</div>
 {% endblock %}

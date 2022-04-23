@@ -23,7 +23,8 @@
       <tbody>
           {% for profile in object_list %}
             <tr>
-                <th scope="row"><a href="{% url 'profile' profile.user_id %}">{{ profile.user_id }}</a></th>
+                <th scope="row"><a class="text-decoration-none"
+                   href="{% url 'profile' profile.user_id %}">{{ profile.user_id }}</a></th>
               <td>{{ profile.name }}</td>
               <td>${{ profile.cash }}</td>
               <td>{{ profile.get_wins_count }}</td>
