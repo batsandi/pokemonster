@@ -1,36 +1,38 @@
-from django.contrib.auth import views as auth_views, login, authenticate
+from django.contrib.auth import views as auth_views, login, authenticate, get_user_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
-from pokemonster.accounts.forms import UserRegisterForm
+from pokemonster.accounts.forms import UserRegisterForm, UserLoginForm
 from pokemonster.accounts.models import AppUser, Profile
 from pokemonster.fight.models import Fight
 from pokemonster.main.models import Customon
 
-
-class UserLoginView(auth_views.LoginView):
-    template_name = 'accounts/login.html'
-    success_url = reverse_lazy('index')
-
-    def get_success_url(self):
-        if self.success_url:
-            return self.success_url
-        return super().get_success_url()
+UseModel = get_user_model()
 
 
 class UserRegisterView(views.CreateView):
     template_name = 'accounts/register.html'
-    model = AppUser
     form_class = UserRegisterForm
-    success_url = reverse_lazy('index')
+    # success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.save()
         user = authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password1'], )
         login(self.request, user)
         return HttpResponseRedirect(reverse('index'))
+
+
+class UserLoginView(auth_views.LoginView):
+    template_name = 'accounts/login.html'
+    success_url = reverse_lazy('index')
+    form_class = UserLoginForm
+
+    def get_success_url(self):
+        if self.success_url:
+            return self.success_url
+        return super().get_success_url()
 
 
 class UserProfileView(views.DetailView):
@@ -64,13 +66,14 @@ class UserEditView(views.UpdateView):
 class UserLogoutView(auth_views.LogoutView):
     next_page = reverse_lazy('index')
 
+
 class UserDeleteView(views.DeleteView):
     model = Profile
     template_name = 'accounts/delete_profile.html'
     success_url = reverse_lazy('index')
 
 
-class UserListView(views.ListView):
+class LeaderboardView(views.ListView):
     model = Profile
     template_name = 'accounts/leaderboard.html'
 

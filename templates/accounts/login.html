@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 <!-- Login Form -->
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <button>Log in</button>
-</form>
-<!-- End Login Form -->
+<div class="card mx-auto p-5 mt-5" style="max-width: 36rem">
+    <h1 class="card-title display-5">
+        Log in
+    </h1>
+    <form method="POST" class="mt-5">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-outline-primary mt-3">
+            Log in
+        </button>
+    </form>
+</div>
 {% endblock %}
