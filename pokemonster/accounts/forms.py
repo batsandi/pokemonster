@@ -3,7 +3,7 @@ from django.contrib.auth import forms as auth_forms
 from django import forms
 
 from pokemonster.accounts.models import Profile
-from pokemonster.common.mixins import FormWidgetsMixin
+from pokemonster.common.mixins import FormWidgetsMixin, DisableFieldsMixin
 
 UserModel = get_user_model()
 
@@ -31,7 +31,7 @@ class UserRegisterForm(FormWidgetsMixin, auth_forms.UserCreationForm):
 
     class Meta:
         model = UserModel
-        fields = ['email', 'name', 'password1', 'password2']
+        fields = ('email', 'name', 'password1', 'password2')
         # The below does nothing, Since all fields are declared explicitly.
         # widgets = {
         #     'name': forms.EmailInput(
@@ -47,3 +47,24 @@ class UserLoginForm(FormWidgetsMixin, auth_forms.AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._init_bootstrap_form_controls()
+
+
+class UserEditForm(FormWidgetsMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+
+    class Meta:
+        model = Profile
+        fields = ('name', 'photo', 'faction')
+
+
+class UserDeleteForm(DisableFieldsMixin, FormWidgetsMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
+        self._disable_fields()
+
+    class Meta:
+        model = Profile
+        fields = ('name', 'photo', 'faction')

@@ -9,4 +9,17 @@ class FormWidgetsMixin:
                 field.widget.attrs['class'] = ''
             field.widget.attrs['class'] += ' form-control'
             field.widget.attrs['class'] += ' mb-4 mt-1'
-            field.widget.attrs['placeholder'] = f'Enter {field.label.lower()}'
+            if field.label:
+                field.widget.attrs['placeholder'] = f'Enter {field.label.lower()}'
+            else:
+                field.widget.attrs['placeholder'] = f'Enter value'
+
+
+
+class DisableFieldsMixin:
+    fields = {}
+
+    def _disable_fields(self):
+        for (_, field) in self.fields.items():
+            field.widget.attrs['disabled'] = 'disabled'
+            field.widget.attrs['readonly'] = 'readonly'

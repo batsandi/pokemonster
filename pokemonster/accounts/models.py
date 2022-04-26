@@ -27,16 +27,18 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 class Profile(models.Model):
     USERNAME_MAX_LENGTH = 35
 
-    MALE = 'Male'
-    FEMALE = 'Female'
-    DO_NOT_SHOW = 'Do not show'
+    MYSTIC = 'Mystic'
+    INSTINCT = 'Instinct'
+    VALOR = 'Valor'
+    UNAFFILIATED = 'Unaffiliated'
 
-    GENDERS = [(x, x) for x in (MALE, FEMALE, DO_NOT_SHOW)]
+    FACTIONS = [(x, x) for x in (MYSTIC, INSTINCT, VALOR, UNAFFILIATED)]
 
     STARTING_CASH = 1000
 
     name = models.CharField(
         max_length=USERNAME_MAX_LENGTH,
+        unique=True
         # validators=(
         #     MinLengthValidator(FIRST_NAME_MIN_LENGTH),
         #     validate_only_letters,
@@ -50,13 +52,12 @@ class Profile(models.Model):
         blank=True,
     )
 
-
-    gender = models.CharField(
-        max_length=max(len(x) for x, _ in GENDERS),
-        choices=GENDERS,
+    faction = models.CharField(
+        max_length=max(len(x) for x, _ in FACTIONS),
+        choices=FACTIONS,
         null=True,
         blank=True,
-        default=DO_NOT_SHOW,
+        default=UNAFFILIATED,
     )
 
     cash = models.IntegerField(

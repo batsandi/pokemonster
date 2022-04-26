@@ -2,14 +2,28 @@
 {% block content %}
 <!-- Del Form -->
 {% if request.user.id == object.user.id %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input>Type "I quit"</input>
-        <button>I'm a quitter :(</button>
-    </form>
+    <!-- Delete Form -->
+    <div class="card mx-auto p-5 mt-5" style="max-width: 36rem">
+        <h1 class="card-title display-5">
+            Delete
+        </h1>
+        <h1 class=" lead mt-5">
+            Are you sure you want to delete your profile?
+        </h1>
+        <form method="POST" class="mt-5">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-outline-danger mt-3">
+                Delete
+            </button>
+        </form>
+    </div>
 {% else %}
-        BAD!!! You can't delete {{ object.user.profile.name }}'s profile...
+        You can't delete {{ object.user.profile.name }}'s profile...
 {% endif %}
 <!-- End Delete Form -->
 {% endblock %}
+
+
+
+

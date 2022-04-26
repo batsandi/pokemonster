@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
-from pokemonster.accounts.forms import UserRegisterForm, UserLoginForm
+from pokemonster.accounts.forms import UserRegisterForm, UserLoginForm, UserEditForm, UserDeleteForm
 from pokemonster.accounts.models import AppUser, Profile
 from pokemonster.fight.models import Fight
 from pokemonster.main.models import Customon
@@ -41,14 +41,18 @@ class UserProfileView(views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        won_fights = Fight.objects.filter(owner_id=self.request.user.id, win=True)
-        lost_fights = Fight .objects.filter(owner_id=self.request.user.id, win=False)
-        customons = Customon.objects.filter(owner_id=self.request.user.id)
+        won_fights = Fight.objects.filter(owner_id=self.object.user_id, win=True)
+        lost_fights = Fight .objects.filter(owner_id=self.object.user.id, win=False)
+        customons_count = Customon.objects.filter(owner_id=self.object.user.id).count()
+        fights = Fight.objects.filter(owner_id=self.object.user_id).order_by()[::-1][:5]
+
         context.update({
             'is_owner': self.object.pk == self.request.user.id,
             'won_fights': won_fights,
             'lost_fights': lost_fights,
-            'customons': customons
+            'customons_count': customons_count,
+            'fights': fights,
+
         })
 
         return context
@@ -56,8 +60,8 @@ class UserProfileView(views.DetailView):
 
 class UserEditView(views.UpdateView):
     model = Profile
+    form_class = UserEditForm
     template_name = 'accounts/edit_profile.html'
-    fields = ('name', 'photo', 'gender')
 
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'pk': self.object.pk})
@@ -69,6 +73,7 @@ class UserLogoutView(auth_views.LogoutView):
 
 class UserDeleteView(views.DeleteView):
     model = Profile
+    # form_class = UserDeleteForm
     template_name = 'accounts/delete_profile.html'
     success_url = reverse_lazy('index')
 

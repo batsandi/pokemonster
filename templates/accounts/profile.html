@@ -1,27 +1,99 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div>
-        {% if profile.photo %}
-            <img src="{{ profile.photo.url }}">
-        {% endif %}
-    </div>
-    <div>
-    ID: {{ object.pk }}
-    Name: {{ object }}
-    Cash: ${{ object.cash }}
-    </div>
-    <div>
-        Wins: {{ won_fights.count }}
-        Losses: {{ lost_fights.count }}
-    </div>
-    <div>
-        Customons: {{ customons }}
-    </div>
-    <div>
-    {% if is_owner %}
-        <a href="{% url 'edit profile' request.user.pk %}">Edit</a>
-        <a href="{% url 'delete profile' request.user.pk %}">Delete</a>
-    {% endif %}
+    <h1 class="display-5">
+        {{ object.name | title }}'s Profile
+    </h1>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 card mx-auto p-5 mt-5">
+            <div class="row">
+                <img src="{{ profile.photo.url }}" alt="No Image">
+            </div>
+            <div class="row">
+                <h3 class="lead text-center mt-3">Name: {{ object.name | title}}</h3>
+                <h3 class="lead text-center mt-3">Faction: {{ object.faction | title}}</h3>
+                <button type="button" class="btn btn-primary mt-3">
+                    Edit
+                </button>
+                <button class="btn btn-danger mt-3">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <div class = "col-lg-8 col-md-8 col-sm-12 card mx-auto p-5 mt-5">
+            <div class="card">
+                <h1 class="card-subtitle text-center">Stats</h1>
+                <hr>
+                <table class="table text-center">
+                    <tbody>
+                        <tr>
+                            <th scope="row">
+                                Cash
+                            </th>
+                            <td>
+                                ${{ object.cash }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                Wins
+                            </th>
+                            <td>
+                                {{ object.get_wins_count }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                Losses
+                            </th>
+                            <td>
+                                {{ object.get_losses_count }}
+                            </td>
+                        </tr>
+                         <tr>
+                            <th scope="row">
+                                Customons
+                            </th>
+                            <td>
+                                {{ customons_count }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h1 class="card-subtitle text-center">
+                    Last 5 Fights
+                </h1>
+                <hr>
+                    <table class="table text-center">
+                        <tbody>
+                            {% if fights %}
+                            {% for fight in fights %}
+                                <tr>
+                                    <td>
+                                        {% if fight.win %}
+                                            Won
+                                        {% else %}
+                                            Lost
+                                        {% endif %}
+                                        ${{fight.bet_amount }}
+                                        by selecting
+                                        {{fight.selected_pokemon| title}}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td>
+                                        There are nofights to display
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+
+
+            </div>
+        </div>
     </div>
 {% endblock %}
