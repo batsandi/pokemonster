@@ -3,12 +3,17 @@
     <div>
         You selected {{ object.selected_pokemon }}
     </div>
-
+    <div id="the_log" style="display: none">
     {% for line in split_fight_log%}
         <div>
             {{ line }}
         </div>
     {% endfor %}
+    </div>
+    <div id="target">
+
+    </div>
+    <div id="result" style="display: none">
     {% if object.win %}
         <div>{{ object.selected_pokemon }} Won!</div>
         <div>You gain ${{ object.bet_amount }}</div>
@@ -17,6 +22,6 @@
         <div>{{ object.selected_pokemon }} Lost!</div>
         <div>You lose ${{ object.bet_amount }}</div>
         <div>Your cash is now: ${{ object.owner.cash }}</div>
-
+    </div>
     {% endif %}
 {% endblock %}

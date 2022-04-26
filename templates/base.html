@@ -15,7 +15,7 @@
     <link rel="icon" href="https://c.tenor.com/kmHJgipLJCYAAAAC/thunderbolt-pikachu.gif ">
 </head>
 
-<body>
+<body onload="PrintLog()">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="{% url 'index' %}">
             Pokemonster
@@ -90,6 +90,37 @@
         let start_amount = parseInt(document.getElementById('hidden_cash').value);
         let cash_left = start_amount - bet_amount
         document.getElementById('cash').innerHTML = `Cash: $${cash_left.toString()}`;}
+</script>
+
+<script>
+let string_array = document.getElementById('the_log').innerText.split('^');
+let i = 0;
+
+function PrintResult() {
+    document.getElementById("target").innerHTML +=
+        `<br>${document.getElementById('result').innerHTML}`;
+}
+
+function PrintLog() {
+  setTimeout(function() {
+    document.getElementById("target").innerHTML += `<br>${string_array[i]}`;
+    i++;
+    if (i < string_array.length) {
+      PrintLog();
+    } else {
+        PrintResult()
+    }
+  }, 1500)
+}
+
+
+
+    function OldPrintLog(){
+		let string_array = document.getElementById('the_log').innerText.split('>');
+        for (const line of string_array) {
+          setTimeout(document.getElementById("target").innerHTML += `<br>${line}`, 50000);
+        }
+    }
 </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

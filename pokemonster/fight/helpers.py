@@ -119,11 +119,11 @@ class Battle(TypesMatrixMixin):
             attacker_type, defender_type, type_factor, damage, critical = cls.attack(cls.attacker, cls.defender)
             if critical:
                 cls.fight_log.append(
-                    f'CRITICAL! {cls.attacker} -> {damage} {attacker_type} [x{type_factor}] -> {defender_type} {cls.defender} HP: {cls.defender.hp}')
+                    f"{cls.attacker} dealt {damage} (x{type_factor} {attacker_type.title()} vs. {defender_type.title()}) CRITICAL to {cls.defender} - HP: {cls.defender.hp}^")
 
             else:
                 cls.fight_log.append(
-                    f'{cls.attacker} -> {damage} {attacker_type.title()} [x{type_factor}] -> {defender_type.title()} {cls.defender} HP: {cls.defender.hp}')
+                    f"{cls.attacker} dealt {damage} (x{type_factor} {attacker_type.title()} vs. {defender_type.title()}) damage to {cls.defender} - HP: {cls.defender.hp}^")
 
         cls.current_round = 0
         winner = cls.attacker
