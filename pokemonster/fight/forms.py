@@ -1,12 +1,14 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
+from pokemonster.common.mixins import FormWidgetsMixin
 from pokemonster.fight.models import Fight
 
 
-class CreateFightForm(forms.ModelForm):
+class CreateFightForm(FormWidgetsMixin, forms.ModelForm):
     def __init__(self, owner, selected_pokemon, win, fight_log,*args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._init_bootstrap_form_controls()
         self.owner = owner
         self.selected_pokemon = selected_pokemon
         self.win = win
@@ -28,6 +30,14 @@ class CreateFightForm(forms.ModelForm):
     class Meta:
         model = Fight
         fields = ('bet_amount',)
+        widgets = {
+            'bet_amount': forms.NumberInput(
+                attrs={
+                    'onkeyup': 'UpdateCash()',
+                }
+            ),
+        }
+
 
     def clean_bet_amount(self):
         bet_amount = self.cleaned_data.get('bet_amount')

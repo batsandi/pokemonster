@@ -14,6 +14,9 @@ class MyCustomonsView(views.ListView):
     model = Customon
     template_name = 'main/customons.html'
 
+    def get_queryset(self):
+        queryset = Customon.objects.filter(owner__user_id=self.request.user.id)
+        return queryset
 
 class AddCustomonView(views.CreateView):
     template_name = 'main/create_customon.html'

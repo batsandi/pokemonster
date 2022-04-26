@@ -46,6 +46,7 @@ class UserProfileView(views.DetailView):
         customons_count = Customon.objects.filter(owner_id=self.object.user.id).count()
         fights = Fight.objects.filter(owner_id=self.object.user_id).order_by()[::-1][:5]
 
+
         context.update({
             'is_owner': self.object.pk == self.request.user.id,
             'won_fights': won_fights,

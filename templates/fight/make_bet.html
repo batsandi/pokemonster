@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="post">
+<!-- Make Bet Form -->
+<div class="card mx-auto p-5 mt-5" style="max-width: 36rem">
+    <h1 class="card-title display-3">
+        Make а bet
+    </h1>
+    <h1 class="card-title display-5" id="cash">
+        Cash: ${{ request.user.profile.cash }}
+    </h1>
+    <form method="POST" class="mt-5">
         {% csrf_token %}
         {{ form }}
-        <button>Bet</button>
+        <button type="submit" class="btn btn-outline-primary mt-3">
+            Make bet
+        </button>
     </form>
+</div>
+<input type="hidden" value="{{ request.user.profile.cash }}" id="hidden_cash">
+
 {% endblock %}
+

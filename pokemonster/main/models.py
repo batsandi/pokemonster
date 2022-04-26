@@ -16,7 +16,8 @@ class Customon(models.Model):
     TYPES = [(x, x) for x in (CUTE, ANNOYING, FUNNY, ANGRY, SAD, AMAZING)]
 
     name = models.CharField(
-        max_length=NAME_MAX_LENGTH
+        max_length=NAME_MAX_LENGTH,
+        unique=True,
     )
 
     photo = cloudinary_models.CloudinaryField('image',)

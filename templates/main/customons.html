@@ -1,9 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>CUSTOMONS</h1>
+    <h1 class="display-5">
+        My Customons <hr>
+    </h1>
     <div>
-        <a href="{% url 'add customon'%}">Add Customon</a>
+        <a class="btn btn-primary mt-3" href="{% url 'add customon'%}">Add Customon</a>
     </div>
 
-    {{ object_list }}
+
+<div class="row">
+    {% if not object_list %}
+        <h1 class="text-center display-4">
+            You have no customons
+        </h1>
+    {% else %}
+        {% for customon in object_list %}
+            <div class="col-sm-12 col-md-6 col-lg-3 mt-5">
+                <div class="card">
+                    <h1 class="lead ms-2 mt-2">
+                        {{ customon.name | title }}
+                    </h1>
+                    <p
+                            class="card-body">Type: {{ customon.type | title }}
+                    </p>
+                    <img class="card-img" src="{{ customon.photo.url }}" alt="No customon photo">
+                    <div class="p-4 text-center">
+                        <span>
+                            <button class="btn btn-primary">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
 {% endblock %}

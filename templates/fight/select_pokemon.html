@@ -1,47 +1,41 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col"><h1 class="text-center">Who Would Win?</h1></div>
-    </div>
+<h1 class="display-5 text-center">
+Who Would Win?
+</h1>
 
 
     <div class="row">
-    <div class="col">
+    <div class="col text-start">
       <img src="{{ pokemon_1.image }}"
          class="card-img-top" alt="Photo description">
-      <ul>
-          <li>Name: {{ pokemon_1.name | title}}</li>
-          <li>Types: {{ pokemon_1.types | title}}</li>
-          <li>HP: {{ pokemon_1.hp }}</li>
-          <li>Attack: {{ pokemon_1.attack }}</li>
-          <li>Defense: {{ pokemon_1.defense }}</li>
-          <li>Speed: {{ pokemon_1.speed }}</li>
+        <a class="btn btn-primary mt-3 mb-3" style="width: 100%" href="{% url 'make selection' 1%}">Select</a>
+        <ul class="list-group text-start" >
+          <li class="list-group-item">Name: {{ pokemon_1.name | title}}</li>
+          <li class="list-group-item">Types: {{ pokemon_1.types | title}}</li>
+          <li class="list-group-item">HP: {{ pokemon_1.hp }}</li>
+          <li class="list-group-item">Attack: {{ pokemon_1.attack }}</li>
+          <li class="list-group-item">Defense: {{ pokemon_1.defense }}</li>
+          <li class="list-group-item">Speed: {{ pokemon_1.speed }}</li>
       </ul>
-      <a href="{% url 'make selection' 1%}">Select</a>
     </div>
     <div class="col-2">
-        <h1 class="text-center">VS</h1>
 
     </div>
-    <div class="col">
+    <div class="col text-end">
         <img src="{{ pokemon_2.image }}"
              class="card-img-top" alt="Photo description">
-      <ul>
-          <li>Name: {{ pokemon_2.name | title}}</li>
-          <li>Types: {{ pokemon_2.types | title}}</li>
-          <li>HP: {{ pokemon_2.hp }}</li>
-          <li>Attack: {{ pokemon_2.attack }}</li>
-          <li>Defense: {{ pokemon_2.defense }}</li>
-          <li>Speed: {{ pokemon_2.speed }}</li>
+      <a class="btn btn-primary mt-3 mb-3" style="width: 100%" href="{% url 'make selection' 2%}">Select</a>
+        <ul class="list-group text-end">
+          <li class="list-group-item">Name: {{ pokemon_2.name | title}}</li>
+          <li class="list-group-item">Types: {{ pokemon_2.types | title}}</li>
+          <li class="list-group-item">HP: {{ pokemon_2.hp }}</li>
+          <li class="list-group-item">Attack: {{ pokemon_2.attack }}</li>
+          <li class="list-group-item">Defense: {{ pokemon_2.defense }}</li>
+          <li class="list-group-item">Speed: {{ pokemon_2.speed }}</li>
       </ul>
-      <a href="{% url 'make selection' 2%}">Select</a>
     </div>
   </div>
-</div>
-<div class="container">
-    <h1 class="text-center">Damage Forumula</h1>
-    <h2 class="text-center">Damage = 10 * (Attack/Defense) * Type Multiplier * random(0.7, 1) * critical</h2>
-</div>
+
 {% endblock %}
