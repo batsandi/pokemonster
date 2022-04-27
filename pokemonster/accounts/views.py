@@ -1,5 +1,7 @@
 from django.contrib.auth import views as auth_views, login, authenticate, get_user_model
-from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
@@ -35,7 +37,7 @@ class UserLoginView(auth_views.LoginView):
         return super().get_success_url()
 
 
-class UserProfileView(views.DetailView):
+class UserProfileView(LoginRequiredMixin, views.DetailView):
     model = Profile
     template_name = 'accounts/profile.html'
 
@@ -59,7 +61,7 @@ class UserProfileView(views.DetailView):
         return context
 
 
-class UserEditView(views.UpdateView):
+class UserEditView(LoginRequiredMixin, views.UpdateView):
     model = Profile
     form_class = UserEditForm
     template_name = 'accounts/edit_profile.html'
@@ -67,16 +69,30 @@ class UserEditView(views.UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'pk': self.object.pk})
 
+    def dispatch(self, request,pk, *args, **kwargs):
+        user = AppUser.objects.get(id=pk)
 
-class UserLogoutView(auth_views.LogoutView):
+        if request.user != user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+
+class UserLogoutView(LoginRequiredMixin, auth_views.LogoutView):
     next_page = reverse_lazy('index')
 
 
-class UserDeleteView(views.DeleteView):
+class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     model = Profile
     # form_class = UserDeleteForm
     template_name = 'accounts/delete_profile.html'
     success_url = reverse_lazy('index')
+
+    def dispatch(self, request,pk, *args, **kwargs):
+        user = AppUser.objects.get(id=pk)
+
+        if request.user != user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 class LeaderboardView(views.ListView):

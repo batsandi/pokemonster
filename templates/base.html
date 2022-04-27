@@ -53,10 +53,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'log out' %}">
+                        <a class="nav-link" href="log out">
                             Logout
                         </a>
                     </li>
+                    {% if request.user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/">
+                            Administration
+                        </a>
+                    </li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item">
                        <a class="nav-link auto" href="{% url 'login' %}">

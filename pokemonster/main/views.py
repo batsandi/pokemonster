@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -10,7 +11,7 @@ class ShowIndex(views.TemplateView):
     template_name = 'main/index.html'
 
 
-class MyCustomonsView(views.ListView):
+class MyCustomonsView(LoginRequiredMixin, views.ListView):
     model = Customon
     template_name = 'main/customons.html'
 
@@ -18,7 +19,7 @@ class MyCustomonsView(views.ListView):
         queryset = Customon.objects.filter(owner__user_id=self.request.user.id)
         return queryset
 
-class AddCustomonView(views.CreateView):
+class AddCustomonView(LoginRequiredMixin, views.CreateView):
     template_name = 'main/create_customon.html'
     model = Customon
     form_class = AddCustomonForm
@@ -35,7 +36,7 @@ class CustomonWallView(views.ListView):
     template_name = 'main/customon_wall.html'
 
 
-class AddCommentView(views.CreateView):
+class AddCommentView(LoginRequiredMixin, views.CreateView):
     template_name = 'main/create_comment.html'
     model = Comment
     success_url = reverse_lazy('wall')
@@ -49,4 +50,5 @@ class AddCommentView(views.CreateView):
         kwargs['customon'] = customon
         kwargs['owner'] = self.request.user.profile
         return kwargs
+
 

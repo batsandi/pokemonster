@@ -1,5 +1,7 @@
 import random
 import requests
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
@@ -9,7 +11,7 @@ from pokemonster.fight.helpers import PokemonFromAPI, Battle
 from pokemonster.fight.models import Pokemon, Fight
 
 
-class SelectPokemonView(views.TemplateView):
+class SelectPokemonView(LoginRequiredMixin, views.TemplateView):
     template_name = 'fight/select_pokemon.html'
     api_base_url = 'https://pokeapi.co/api/v2/pokemon/'
     MIN_POKE_ID = 1
@@ -34,6 +36,7 @@ class SelectPokemonView(views.TemplateView):
         return context
 
 
+@login_required
 def make_selection(request, selection):
     if selection == 1:
         request.session['selected_pokemon'] = request.session.get('pokemon_1')
@@ -45,7 +48,7 @@ def make_selection(request, selection):
     return redirect('make bet')
 
 
-class MakeBetView(views.CreateView):
+class MakeBetView(LoginRequiredMixin, views.CreateView):
     form_class = CreateFightForm
     template_name = 'fight/make_bet.html'
     # success_url = reverse_lazy('fight result')
@@ -71,7 +74,7 @@ class MakeBetView(views.CreateView):
         return kwargs
 
 
-class FightResultView(views.DetailView):
+class FightResultView(LoginRequiredMixin, views.DetailView):
     template_name = 'fight/fight_result.html'
     model = Fight
 
