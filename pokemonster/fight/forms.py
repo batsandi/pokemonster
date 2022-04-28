@@ -8,7 +8,7 @@ from pokemonster.fight.models import Fight
 class CreateFightForm(FormWidgetsMixin, forms.ModelForm):
     def __init__(self, owner, selected_pokemon, win, fight_log,*args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+        self._init_form_widget_update()
         self.owner = owner
         self.selected_pokemon = selected_pokemon
         self.win = win

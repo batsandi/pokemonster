@@ -1,7 +1,7 @@
 class FormWidgetsMixin:
     fields = {}
 
-    def _init_bootstrap_form_controls(self):
+    def _init_form_widget_update(self):
         for _, field in self.fields.items():
             if not hasattr(field.widget, 'attrs'):
                 setattr(field.widget, 'attrs', {})

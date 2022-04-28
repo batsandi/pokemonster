@@ -15,7 +15,7 @@ class UserRegisterForm(FormWidgetsMixin, auth_forms.UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+        self._init_form_widget_update()
         self.fields['password1'].help_text=None
         self.fields['password2'].help_text=None
 
@@ -46,25 +46,26 @@ class UserLoginForm(FormWidgetsMixin, auth_forms.AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+        self._init_form_widget_update()
 
 
 class UserEditForm(FormWidgetsMixin, forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+        self._init_form_widget_update()
 
     class Meta:
         model = Profile
         fields = ('name', 'photo', 'faction')
 
 
-class UserDeleteForm(DisableFieldsMixin, FormWidgetsMixin, forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
-        self._disable_fields()
-
-    class Meta:
-        model = Profile
-        fields = ('name', 'photo', 'faction')
+# Dropped thi form bc of field i required behavior for required name field.
+# class UserDeleteForm(DisableFieldsMixin, FormWidgetsMixin, forms.ModelForm):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self._init_form_widget_update()
+#         self._disable_fields()
+#
+#     class Meta:
+#         model = Profile
+#         fields = ('name', 'photo', 'faction')

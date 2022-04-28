@@ -7,7 +7,7 @@
         Delete
     </h1>
     <h1 class=" lead mt-5">
-        Are you sure you want to delete your profile?
+        Are you sure you want to delete {{ object.name | title}}?
     </h1>
     <form method="POST" class="mt-5">
         {% csrf_token %}
@@ -19,7 +19,3 @@
 </div>
 <!-- End Delete Form -->
 {% endblock %}
-
-
-
-

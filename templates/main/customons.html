@@ -26,8 +26,8 @@
                     <img class="card-img" src="{{ customon.photo.url }}" alt="No customon photo">
                     <div class="p-4 text-center">
                         <span>
-                            <button class="btn btn-primary">Edit</button>
-                            <button class="btn btn-danger">Delete</button>
+                            <a href="{% url 'edit customon' customon.pk %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete customon' customon.pk %}" class="btn btn-danger">Delete</a>
                         </span>
                     </div>
                 </div>

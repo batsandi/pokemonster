@@ -7,7 +7,7 @@ from pokemonster.main.models import Customon, Comment
 class AddCustomonForm(FormWidgetsMixin, forms.ModelForm):
     def __init__(self, owner, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+        self._init_form_widget_update()
         self.owner = owner
 
     def save(self, commit=True):
@@ -21,16 +21,22 @@ class AddCustomonForm(FormWidgetsMixin, forms.ModelForm):
         model = Customon
         fields = ('name', 'type', 'photo')
 
-from django import forms
 
-from pokemonster.main.models import Customon
+class EditCustomonForm(FormWidgetsMixin, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._init_form_widget_update()
+
+    class Meta:
+        model = Customon
+        fields = ('name', 'type', 'photo')
 
 
 class AddCommentForm(FormWidgetsMixin,  forms.ModelForm):
 
     def __init__(self, customon, owner, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._init_bootstrap_form_controls()
+        self._init_form_widget_update()
         self.customon = customon
         self.owner=owner
 

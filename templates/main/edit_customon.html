@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Edit Form -->
+<div class="card mx-auto p-5 mt-5" style="max-width: 36rem">
+    <h1 class="card-title display-5">
+        Edit Customon
+    </h1>
+    <form method="POST" class="mt-5" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-outline-primary mt-3">
+            Submit
+        </button>
+    </form>
+</div>
+{% endblock %}

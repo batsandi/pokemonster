@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
-from pokemonster.accounts.forms import UserRegisterForm, UserLoginForm, UserEditForm, UserDeleteForm
+from pokemonster.accounts.forms import UserRegisterForm, UserLoginForm, UserEditForm
 from pokemonster.accounts.models import AppUser, Profile
 from pokemonster.fight.models import Fight
 from pokemonster.main.models import Customon
@@ -83,7 +83,6 @@ class UserLogoutView(LoginRequiredMixin, auth_views.LogoutView):
 
 class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     model = Profile
-    # form_class = UserDeleteForm
     template_name = 'accounts/delete_profile.html'
     success_url = reverse_lazy('index')
 
