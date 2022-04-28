@@ -99,3 +99,4 @@ class LeaderboardView(views.ListView):
     model = Profile
     template_name = 'accounts/leaderboard.html'
 
+# blank
