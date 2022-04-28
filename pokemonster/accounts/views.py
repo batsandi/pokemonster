@@ -99,6 +99,6 @@ class LeaderboardView(views.ListView):
     model = Profile
     template_name = 'accounts/leaderboard.html'
 
-
+# dummy comment to allow puh
 
 
