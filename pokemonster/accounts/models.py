@@ -1,5 +1,6 @@
 from cloudinary import models as cloudinary_models
 from django.contrib.auth import models as auth_models
+from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 
 from pokemonster.accounts.managers import AppUserManager
@@ -26,6 +27,7 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
 class Profile(models.Model):
     USERNAME_MAX_LENGTH = 35
+    USERNAME_MIN_LENGTH = 2
 
     MYSTIC = 'Mystic'
     INSTINCT = 'Instinct'
@@ -35,21 +37,23 @@ class Profile(models.Model):
     FACTIONS = [(x, x) for x in (MYSTIC, INSTINCT, VALOR, UNAFFILIATED)]
 
     STARTING_CASH = 1000
+    MIN_CASH = 0
+
+    MAX_PHOTO_MB = 5
 
     name = models.CharField(
         max_length=USERNAME_MAX_LENGTH,
-        unique=True
-        # validators=(
-        #     MinLengthValidator(FIRST_NAME_MIN_LENGTH),
-        #     validate_only_letters,
-        #     # always_valid('asd'),
-        # )
+        unique=True,
+        validators=(
+            MinLengthValidator(USERNAME_MIN_LENGTH),
+        )
     )
 
     photo = cloudinary_models.CloudinaryField(
         'image',
         null=True,
         blank=True,
+        # TODO how to add cloudinary validator?
     )
 
     faction = models.CharField(
@@ -61,7 +65,10 @@ class Profile(models.Model):
     )
 
     cash = models.IntegerField(
-        default=STARTING_CASH
+        default=STARTING_CASH,
+        validators=(
+            MinValueValidator(MIN_CASH),
+        )
     )
 
     user = models.OneToOneField(

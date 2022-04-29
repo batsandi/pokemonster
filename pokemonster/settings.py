@@ -23,7 +23,7 @@ APP_ENV = os.getenv(key='APP_ENV')
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2-dfua%w5w+k5=6kn!9u%&)xby01gq#4$44_af@b+zt6^b&9z2')
 
 #dummy comment
 # SECURITY WARNING: don't run with debug turned on in production!

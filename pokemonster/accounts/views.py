@@ -43,16 +43,15 @@ class UserProfileView(LoginRequiredMixin, views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        won_fights = Fight.objects.filter(owner_id=self.object.user_id, win=True)
-        lost_fights = Fight .objects.filter(owner_id=self.object.user.id, win=False)
+        # won_fights = Fight.objects.filter(owner_id=self.object.user_id, win=True)
+        # lost_fights = Fight .objects.filter(owner_id=self.object.user.id, win=False)
         customons_count = Customon.objects.filter(owner_id=self.object.user.id).count()
         fights = Fight.objects.filter(owner_id=self.object.user_id).order_by()[::-1][:5]
 
-
         context.update({
             'is_owner': self.object.pk == self.request.user.id,
-            'won_fights': won_fights,
-            'lost_fights': lost_fights,
+            # 'won_fights': won_fights,
+            # 'lost_fights': lost_fights,
             'customons_count': customons_count,
             'fights': fights,
 
