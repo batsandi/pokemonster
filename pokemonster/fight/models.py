@@ -6,6 +6,11 @@ class Pokemon(models.Model):
     NAME_MAX_LENGTH = 30
     TYPE_MAX_LENGTH = 30
 
+    poke_index = models.IntegerField(
+        primary_key=True,
+        unique=True,
+    )
+
     name = models.CharField(
         max_length=NAME_MAX_LENGTH
     )
@@ -39,9 +44,14 @@ class Fight(models.Model):
         on_delete=models.CASCADE,
     )
 
-    selected_pokemon = models.CharField(
-        max_length=POKEMON_NAME_MAX_LENGTH
+    selected_pokemon = models.ForeignKey(
+        Pokemon,
+        on_delete=models.CASCADE,
     )
+
+    # selected_pokemon = models.CharField(
+    #     max_length=POKEMON_NAME_MAX_LENGTH
+    # )
 
     # chosen_pokemon = models.ManyToManyField(
     #     Pokemon,

@@ -38,7 +38,6 @@ class CreateFightForm(FormWidgetsMixin, forms.ModelForm):
             ),
         }
 
-
     def clean_bet_amount(self):
         bet_amount = self.cleaned_data.get('bet_amount')
         cash = self.owner.cash

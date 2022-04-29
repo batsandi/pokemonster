@@ -64,6 +64,7 @@ class DeleteCustomonView(LoginRequiredMixin, views.DeleteView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
+
 class CustomonWallView(views.ListView):
     model = Customon
     template_name = 'main/customon_wall.html'

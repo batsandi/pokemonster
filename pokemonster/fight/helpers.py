@@ -92,8 +92,10 @@ class Battle(TypesMatrixMixin):
     @classmethod
     def attack(cls, attacker, defender):
         critical = False
-        attacker_type = cls.attacker.types[random.randint(0, len(cls.attacker.types) - 1)]
-        defender_type = cls.defender.types[random.randint(0, len(cls.defender.types) - 1)]
+        attacker_type = eval(cls.attacker.types)
+        defender_type = eval(cls.defender.types)
+        attacker_type = attacker_type[random.randint(0, len(attacker_type) - 1)]
+        defender_type = defender_type[random.randint(0, len(defender_type) - 1)]
         type_factor = cls._types_factors_dict[attacker_type][defender_type]
 
         damage = 10
@@ -119,56 +121,80 @@ class Battle(TypesMatrixMixin):
             attacker_type, defender_type, type_factor, damage, critical = cls.attack(cls.attacker, cls.defender)
             if critical:
                 cls.fight_log.append(
-                    f"{cls.attacker} dealt {damage} (x{type_factor} {attacker_type.title()} vs. {defender_type.title()}) CRITICAL to {cls.defender} - HP: {cls.defender.hp}^")
+                    f"{cls.attacker} dealt {damage} CRITICAL damage (x{type_factor} {attacker_type.title()} vs. {defender_type.title()}) to {cls.defender} - HP: {cls.defender.hp}^")
 
             else:
                 cls.fight_log.append(
-                    f"{cls.attacker} dealt {damage} (x{type_factor} {attacker_type.title()} vs. {defender_type.title()}) damage to {cls.defender} - HP: {cls.defender.hp}^")
+                    f"{cls.attacker} dealt {damage} damage (x{type_factor} {attacker_type.title()} vs. {defender_type.title()}) to {cls.defender} - HP: {cls.defender.hp}^")
 
         cls.current_round = 0
         winner = cls.attacker
         return winner, ', '.join(cls.fight_log)
 
 
-class PokemonFromAPI:
-    DM_TO_CM = 10
+def convert_pokemon_data(pokemon_json):
+    poke_id = pokemon_json['id']
+    name = pokemon_json['name']
+    image = pokemon_json['sprites']['other']['official-artwork']['front_default']
+    types = [type['type']['name'] for type in pokemon_json['types']]
+    __stats = pokemon_json['stats']
+    hp = __stats[0]['base_stat']
+    attack = __stats[1]['base_stat']
+    defense = __stats[2]['base_stat']
+    speed = __stats[5]['base_stat']
+    data = {
+        'name': name,
+        'poke_index': poke_id,
+        'image': image,
+        'types': types,
+        'hp': hp,
+        'attack': attack,
+        'defense': defense,
+        'speed': speed,
+    }
 
-    def __init__(self, pokemon_json):
-        self.id = pokemon_json['id']
-        self.name = pokemon_json['name']
-        self.image = pokemon_json['sprites']['other']['official-artwork']['front_default']
-        self.height = pokemon_json['height'] * self.DM_TO_CM
-        self.weight = pokemon_json['weight']
-        self.types = [type['type']['name'] for type in pokemon_json['types']]
-        self.__stats = pokemon_json['stats']
-        self.hp = self.__stats[0]['base_stat']
-
-    @property
-    def attack(self):
-        return self.__stats[1]['base_stat']
-
-    @property
-    def defense(self):
-        return self.__stats[2]['base_stat']
-
-    @property
-    def speed(self):
-        return self.__stats[5]['base_stat']
-
-    def get_data_for_model(self):
-        data = {
-            'name': self.name,
-            'image': self.image,
-            'types': self.types,
-            'hp': self.hp,
-            'attack': self.attack,
-            'defense': self.defense,
-            'speed': self.speed,
-        }
-
-        return data
-
-    def __str__(self):
-        return self.name.title()
+    return data
 
 
+
+
+# class PokemonFromAPI:
+#     DM_TO_CM = 10
+#
+#     def __init__(self, pokemon_json):
+#         self.id = pokemon_json['id']
+#         self.name = pokemon_json['name']
+#         self.image = pokemon_json['sprites']['other']['official-artwork']['front_default']
+#         self.height = pokemon_json['height'] * self.DM_TO_CM
+#         self.weight = pokemon_json['weight']
+#         self.types = [type['type']['name'] for type in pokemon_json['types']]
+#         self.__stats = pokemon_json['stats']
+#         self.hp = self.__stats[0]['base_stat']
+#
+#     @property
+#     def attack(self):
+#         return self.__stats[1]['base_stat']
+#
+#     @property
+#     def defense(self):
+#         return self.__stats[2]['base_stat']
+#
+#     @property
+#     def speed(self):
+#         return self.__stats[5]['base_stat']
+#
+#     def get_data_for_model(self):
+#         data = {
+#             'name': self.name,
+#             'image': self.image,
+#             'types': self.types,
+#             'hp': self.hp,
+#             'attack': self.attack,
+#             'defense': self.defense,
+#             'speed': self.speed,
+#         }
+#
+#         return data
+#
+#     def __str__(self):
+#         return self.name.title()

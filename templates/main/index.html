@@ -9,13 +9,32 @@
                 <img class="card-img" style="min-height: 400px; object-fit: cover; object-position: right bottom" src="{% static 'images/index.png'%}" alt="Card image">
                 <div class="card-img-overlay">
                     <p class="display-5 " style="color:black;margin-top: 40%">
-                        Upload customons for likes<br>Bet on fights for cash
+                        Upload customons for comments<br>Bet on fights for cash
                     </p>
                 </div>
             </div>
-            <hr class="my-4">
-                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <div class="card mb-5">
+                <h1 class="display-5 text-center">
+                    How it works.
+                </h1>
+                <p class="lead ms-5">
+                    This website has two independent applications. One is a social media-like service, where users can
+                    upload custom pokemons (Customons) that they find, share them on the public wall and receive comments.
+                    The other application allows users to bet on fights between two random pokemons. If their selected pokemon wins,
+                    they gain cash!
+                </p>
+                <h1 class="display-5 text-center">
+                    Fight rules
+                </h1>
+                <p1 class="lead ms-5 mb-5">
+                    Each pokemon has its own stats like Attack, Defense and HP. These stats, along with
+                    the pokemon's type are used in a formula to calculate the outcome of the fight. Below is a matrix,
+                    summarizing the type multipliers
+                </p1>
+                <img class="card-img mg-5" src="{% static 'images/matrix.jpeg'%}" alt="Card image">
+            </div>
+{#                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>#}
+{#                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>#}
         </div>
     </div>
 {% endblock %}

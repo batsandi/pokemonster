@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div>
+    <h1 class="display-3 mt-5 text-center">
         You selected {{ object.selected_pokemon }}
-    </div>
+    </h1>
     <div id="the_log" style="display: none">
     {% for line in split_fight_log%}
         <div>
@@ -10,18 +10,18 @@
         </div>
     {% endfor %}
     </div>
-    <div id="target">
+    <div class="lead text-center" id="target">
 
     </div>
     <div id="result" style="display: none">
     {% if object.win %}
-        <div>{{ object.selected_pokemon }} Won!</div>
-        <div>You gain ${{ object.bet_amount }}</div>
-        <div>Your cash is now: ${{ object.owner.cash }}</div>
+        <div class="display-5 text-center">{{ object.selected_pokemon }} Won!</div>
+        <div class="display-5 text-center">You gain ${{ object.bet_amount }}</div>
+        <div class="display-5 text-center">Your cash is now: ${{ object.owner.cash }}</div>
     {% else %}
-        <div>{{ object.selected_pokemon }} Lost!</div>
-        <div>You lose ${{ object.bet_amount }}</div>
-        <div>Your cash is now: ${{ object.owner.cash }}</div>
+        <div class="display-5 text-center">{{ object.selected_pokemon }} Lost!</div>
+        <div class="display-5 text-center">You lose ${{ object.bet_amount }}</div>
+        <div class="display-5 text-center">Your cash is now: ${{ object.owner.cash }}</div>
     </div>
     {% endif %}
 {% endblock %}

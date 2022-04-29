@@ -16,7 +16,7 @@
 </head>
 
 <body onload="PrintLog()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="flex-basis: 100%">
         <a class="navbar-brand" href="{% url 'index' %}">
             Pokemonster
         </a>
@@ -47,31 +47,31 @@
                             Fight
                         </a>
                     </li>
-                    <li class="nav-item ml-5">
+                    <li class="nav-item ml-5 ms-auto">
                         <a class="nav-link" href="{% url 'profile' request.user.pk %}">
                             {{ request.user.profile.name | title}}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="log out">
+                        <a class="nav-link ms-auto" href="log out" >
                             Logout
                         </a>
                     </li>
                     {% if request.user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/">
+                        <a class="nav-link ms-auto" href="/admin/">
                             Administration
                         </a>
                     </li>
                     {% endif %}
                 {% else %}
                     <li class="nav-item">
-                       <a class="nav-link auto" href="{% url 'login' %}">
+                       <a class="nav-link auto ms-auto" href="{% url 'login' %}">
                            Login
                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">
+                        <a class="nav-link ms-auto" href="{% url 'register' %}">
                             Register
                         </a>
                     </li>

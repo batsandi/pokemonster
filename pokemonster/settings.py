@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'pokemonster.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'pokemonster_db'),
+        'NAME': os.getenv('DB_NAME', 'pokemonster_database'),
         'USER': os.getenv('DB_USER', 'postgres'),
         'PASSWORD': os.getenv('DB_PASSWORD', '1123QwER'),
         'HOST': os.getenv('DB_HOST', 'localhost'),
@@ -154,7 +154,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_NAME', None),
-    api_key=os.getenv('CLOUDINARY_API_KEY', None),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET', None),
+    cloud_name=os.getenv('CLOUDINARY_NAME', 'dwryzzeja'),
+    api_key=os.getenv('CLOUDINARY_API_KEY', '787491821938742'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET', 'moHCTEFHIfGyRZ2BtNYgacCmtt4'),
 )
