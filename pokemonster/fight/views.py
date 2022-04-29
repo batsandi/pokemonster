@@ -31,16 +31,8 @@ class SelectPokemonView(LoginRequiredMixin, views.TemplateView):
             .json()
         )
 
-        # pokemon_1 = PokemonFromAPI(requests.get(f'{self.API_BASE_URL}{id_1}').json())
-        # pokemon_2 = PokemonFromAPI(requests.get(f'{self.API_BASE_URL}{id_2}').json())
-
         self.request.session['id_1'] = id_1
         self.request.session['id_2'] = id_2
-
-        # self.request.session['pokemon_1'] = pokemon_1_data
-        # self.request.session['pokemon_2'] = pokemon_2_data
-        # self.request.session['pokemon_1'] = pokemon_1.get_data_for_model()
-        # self.request.session['pokemon_2'] = pokemon_2.get_data_for_model()
 
         pokemon_1 = Pokemon(**pokemon_1_data)
         pokemon_2 = Pokemon(**pokemon_2_data)
@@ -113,4 +105,4 @@ class FightResultView(LoginRequiredMixin, views.DetailView):
 
         return context
 
-
+# blank
