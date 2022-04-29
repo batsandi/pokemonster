@@ -105,3 +105,4 @@ class FightResultView(LoginRequiredMixin, views.DetailView):
 
         return context
 
+#blank
