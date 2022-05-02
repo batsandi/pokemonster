@@ -84,6 +84,3 @@ class AddCommentView(LoginRequiredMixin, views.CreateView):
         kwargs['customon'] = customon
         kwargs['owner'] = self.request.user.profile
         return kwargs
-
-
-# blank
