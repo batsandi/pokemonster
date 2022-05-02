@@ -10,3 +10,4 @@ class LeaderboardViewTests(TestCase):
         )
 
         self.assertTemplateUsed(response, 'accounts/leaderboard.html')
+        
