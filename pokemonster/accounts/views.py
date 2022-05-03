@@ -95,4 +95,5 @@ class UserDeleteView(LoginRequiredMixin, views.DeleteView):
 
 class LeaderboardView(views.ListView):
     model = Profile
+    paginate_by = 5
     template_name = 'accounts/leaderboard.html'

@@ -67,6 +67,7 @@ class DeleteCustomonView(LoginRequiredMixin, views.DeleteView):
 
 class CustomonWallView(views.ListView):
     model = Customon
+    paginate_by = 2
     template_name = 'main/customon_wall.html'
 
 

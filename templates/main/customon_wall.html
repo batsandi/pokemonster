@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1 class="text-center display-5">Customons Wall</h1>
-    {% for customon in object_list %}
+    {% for customon in page_obj %}
         <div class="container">
             <div class="card mx-auto" style="max-width: 36rem;">
                 <img class="card-img-top" src="{{ customon.photo.url }}" alt="No Image">
@@ -32,4 +32,20 @@
             </div>
         </div>
     {% endfor %}
+    <div class="lead mb-2">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </div>
+<nav>
+    <ul class="pagination">
+    {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% endif %}
+    {% for page in paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% endif %}
+</ul>
+</nav>
 {% endblock %}
