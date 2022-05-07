@@ -158,3 +158,17 @@ cloudinary.config(
     api_key=os.getenv('CLOUDINARY_API_KEY', '787491821938742'),
     api_secret=os.getenv('CLOUDINARY_API_SECRET', 'moHCTEFHIfGyRZ2BtNYgacCmtt4'),
 )
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TASK_TRACK_STARTED = True
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "465"
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "pokemonstermailbox@gmail.com"

@@ -8,6 +8,7 @@ from django.views import generic as views
 
 from pokemonster.accounts.forms import UserRegisterForm, UserLoginForm, UserEditForm
 from pokemonster.accounts.models import AppUser, Profile
+from pokemonster.accounts.taska import send_email_task
 from pokemonster.fight.models import Fight
 from pokemonster.main.models import Customon
 
@@ -21,9 +22,19 @@ class UserRegisterView(views.CreateView):
 
     def form_valid(self, form):
         form.save()
+        # self.send_email(form.cleaned_data)
         user = authenticate(email=form.cleaned_data['email'], password=form.cleaned_data['password1'], )
         login(self.request, user)
         return HttpResponseRedirect(reverse('index'))
+        # return super().form_valid(form) --- Why not return super()?
+
+    # def send_email(self, valid_data):
+    #     email = valid_data["email"]
+    #     subject = "New registration"
+    #     message = (
+    #         f"Yes, a new user"
+    #     )
+    #     send_email_task.delay(email, subject, message)
 
 
 class UserLoginView(auth_views.LoginView):
