@@ -10,7 +10,7 @@ docker run -d --name pokemonster_postgres -e POSTGRES_USER=postgres -e POSTGRES_
 ```
 
 ## Start project
-create venv
-install requirements.txt
-apply migrations
-runserver
+- create venv
+- install requirements.txt
+- apply migrations
+- runserver
