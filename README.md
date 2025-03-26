@@ -14,3 +14,7 @@ docker run -d --name pokemonster_postgres -e POSTGRES_USER=postgres -e POSTGRES_
 - install requirements.txt
 - apply migrations
 - runserver
+
+## Prod setup notes
+Elastic beanstalk app in west-eu-2
+followed 
