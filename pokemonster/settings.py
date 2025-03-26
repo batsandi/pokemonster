@@ -30,9 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2-dfua%w5w+k5=6kn!9u%&)xby
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # DEBUG = False
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    '34.215.19.222',
-    'pokemonster-eb-env.eba-ki4dia6c.us-west-2.elasticbeanstalk.com/'
+    *
 ]
 
 # Application definition
