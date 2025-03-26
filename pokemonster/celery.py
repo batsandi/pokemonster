@@ -1,6 +1,6 @@
 import os
 
-from celery import Celery
+from pokemonster.celery import Celery
 
 # Uncomment below if the other line doesn't work
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pokemonster.settings')
