@@ -26,12 +26,12 @@ APP_ENV = os.getenv(key='APP_ENV')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2-dfua%w5w+k5=6kn!9u%&)xby01gq#4$44_af@b+zt6^b&9z2')
 
-#dummy comment
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # DEBUG = False
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '34.215.19.222',
     'pokemonster-eb-env.eba-ki4dia6c.us-west-2.elasticbeanstalk.com/'
 ]
 
