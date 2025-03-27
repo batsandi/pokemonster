@@ -90,13 +90,26 @@ WSGI_APPLICATION = 'pokemonster.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f"postgresql://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', '1123QwER')}"
-                f"@{os.getenv('DB_HOST', 'localhost')}:5432/{os.getenv('DB_NAME', 'pokemonster_database')}",
-        conn_max_age=600
-    )
-}
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=f"postgresql://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', '1123QwER')}"
+                    f"@{os.getenv('DB_HOST', 'localhost')}:5432/{os.getenv('DB_NAME', 'pokemonster_database')}",
+            conn_max_age=600
+        )
+    }
 
 
 # Password validation
