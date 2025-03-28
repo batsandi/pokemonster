@@ -16,5 +16,10 @@ docker run -d --name pokemonster_postgres -e POSTGRES_USER=postgres -e POSTGRES_
 - runserver
 
 ## Prod setup notes
-Elastic beanstalk app in west-eu-2
-followed 
+Prerequisites:
+- aws profile (cli)
+- eb cli
+
+Process:
+- ```eb init```
+- ```eb create -db.engine postgres -db.i db.t3.micro -i t3.micro --single```
