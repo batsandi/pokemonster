@@ -57,7 +57,7 @@ Alternatively, you can run the `eb create` command without the `-db` argument, w
 Finally, 
 
 ```
-eb terminate -lall
+eb terminate --all --force
 ```
 
 To shut down the environment.
