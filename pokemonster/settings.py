@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2-dfua%w5w+k5=6kn!9u%&)xby
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # DEBUG = False
 ALLOWED_HOSTS = [
-    'pokemonster2-dev.eu-central-1.elasticbeanstalk.com',
+    'pokemonster-dev.eu-central-1.elasticbeanstalk.com',
     '127.0.0.1',
 ]
 
@@ -71,8 +71,7 @@ ROOT_URLCONF = 'pokemonster.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,6 +90,7 @@ WSGI_APPLICATION = 'pokemonster.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# EB provided database
 if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
@@ -103,15 +103,14 @@ if 'RDS_HOSTNAME' in os.environ:
         }
     }
 
+# SQLite database if no postgres is provisioned
 else:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=f"postgresql://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', '1123QwER')}"
-                    f"@{os.getenv('DB_HOST', 'localhost')}:5432/{os.getenv('DB_NAME', 'pokemonster_database')}",
-            conn_max_age=600
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
