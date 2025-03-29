@@ -59,8 +59,13 @@ Finally,
 ```
 eb terminate --all --force
 ```
-
 To shut down the environment.
+
+remove the `.elasticbeanstalk` dir
+
+```bash
+rm -rf .elasticbeanstalk
+```
 
   > [!WARNING]
 I believe that this will leave the EB application, as well as a snapshot of the deleted database instance available somewhere.
