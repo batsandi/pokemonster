@@ -14,11 +14,18 @@ from pathlib import Path
 
 import cloudinary
 import dj_database_url
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 APP_ENV = os.getenv(key='APP_ENV')
+
+# Currently not rly using .env (prod/dev) bc of how eb handles the db 
+# and the simplicity of the project.
+# This can easily be changed if needed.
+dotenv_path = os.path.join(BASE_DIR, '../.env')
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -28,10 +35,11 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-2-dfua%w5w+k5=6kn!9u%&)xby
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-# DEBUG = False
+# DEBUG = True
 ALLOWED_HOSTS = [
     'pokemonster2-dev.eu-central-1.elasticbeanstalk.com',
     '127.0.0.1',
+    'localhost',
 ]
 
 # Application definition
@@ -102,6 +110,20 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+
+# Non_EB managed Postgres DB
+elif 'DB_HOSTNAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['DB_DB_NAME'],
+            'USER': os.environ['DB_USERNAME'],
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': os.environ['DB_HOSTNAME'],
+            'PORT': os.environ['DB_PORT'],
+        }
+    }
+
 
 # SQLite database if no postgres is provisioned
 else:

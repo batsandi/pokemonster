@@ -36,7 +36,13 @@ Then
  ```
   eb create -db.engine postgres -db.i db.t3.micro -i t3.micro --single
   ```
+> [!NOTE]
+> Tested with Python 3.12
 
+> [!WARNING]
+> The superuser credentials are defined in the management command itself. If this ever goes to production for some strange reason, this should be handled using a `.env` file. default creds are:
+> - super@user.com
+>-  P4ssw0rd
 
 > [!NOTE]
 The `.ebextensions` folder contains the `.config` files for starting the wsgi server and running  migrations. The `.platform`  folder has the prebbuild script for the linux packages installation. `.elasticbeanstalk` is created when the `eb init`command runsthis
